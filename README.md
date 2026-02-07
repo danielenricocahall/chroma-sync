@@ -9,25 +9,30 @@ To tinker with this project, you'll need the following installed:
 
 # Running
 ## Initial Setup
-For simplicity, everything has been consolidated into the `run.sh` script:
+For simplicity, everything has been consolidated into the `run_replication.sh` script:
 ```shell
-chmod +x run.sh
-./run.sh
+chmod +x ./scripts/run_replication.sh
+./scripts/run_replication.sh
 ```
 
 This will start the MinIO server container (running at `http://localhost:9000`), create the Python environment via `uv`, create the bucket in MinIO, and run the `hydrate_database.py` script to create and populate the persistent Chroma database. Lastly, it will use `litestream` to replicate the persistent Chroma database to the MinIO bucket.
 
 ## Restoring
-To validate the database has been properly replicated, we can restore it to `chroma_db_backups` using the following:  
+To validate the database has been properly replicated, it can be restored using `run_restore.sh` script:  
 
 ```shell
-export AWS_ACCESS_KEY=minioadmin
-export AWS_SECRET_ACCESS_KEY=minioadmin
-litestream restore -o chroma_db_backups/chroma.sqlite3 s3://chroma-backups.localhost:9000/chroma.sqlite3
+chmod +x ./scripts/run_restore.sh
+./scripts/run_restore.sh
 ```
 
-After the restoration is complete, the following can be run to validate (it will output the number of documents in the restored database, and add new documents):
+This will configure the `AWS` environment variables, run `litestar restore` to restore the original database to `chroma_db_backups`, and run the `evaluate_restored_database.py` script to validate the restored database as well as add new documents.
+
+## Cleanup
+To cleanup the resources after testing, 
 
 ```shell
-uv run python evaluate_restored_database.py
+chmod +x ./scripts/cleanup.sh
+./scripts/cleanup.sh
 ```
+
+This will remove the MinIO server container and delete the corresponding data directories.

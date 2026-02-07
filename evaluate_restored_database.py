@@ -3,7 +3,7 @@ import chromadb
 
 persistent_path = os.environ.get("CHROMADB_PERSISTENT_PATH", "chroma_db_backups")
 client = chromadb.PersistentClient(path=persistent_path)
-collection_name = "chroma-sync-testing"
+collection_name = "sterling-cooper-accounts"
 try:
     collection = client.get_collection(collection_name)
     print(f"Using existing collection {collection_name}")
@@ -15,7 +15,10 @@ print(f"Collection {collection_name} currently has {collection.count()} document
 
 # Add some documents
 collection.add(
-    documents=["This is yet another document about the persistent client.", "heheheh"],
+    documents=[
+        "Sterling Cooper Draper Pryce has secured the Jaguar account after an intense pitch.",
+        "Don Draper's Lucky Strike campaign revolutionized cigarette advertising in the 1960s."
+    ],
     metadatas=[{"source": "doc3"}, {"source": "doc4"}],
     ids=["id3", "id4"]
 )
