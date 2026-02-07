@@ -1,0 +1,10 @@
+dbs:
+  - path: ${CHROMADB_PERSISTENT_PATH}/chroma.sqlite3
+    replicas:
+      - type: s3
+        bucket: ${BUCKET_NAME}
+        path: ${OBJECT_PATH}
+        endpoint: http://localhost:9000
+        force-path-style: true
+        access-key-id: minioadmin
+        secret-access-key: minioadmin
