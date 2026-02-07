@@ -21,5 +21,5 @@ docker exec chroma-minio mc mb local/$BUCKET_NAME --ignore-existing
 echo "✅ Setup complete!"
 echo ""
 echo "🔄 Running Litestream with ChromaDB..."
-uv run python temp.py
+uv run python hydrate_database.py
 litestream replicate -config litestream.yml
