@@ -36,3 +36,8 @@ chmod +x ./scripts/cleanup.sh
 ```
 
 This will remove the MinIO server container and delete the corresponding data directories.
+
+# Notes
+- For simplicity, this was done using the default settings. If the `PersistentClient` or corresponding Chroma collection is created using different settings (e.g., different embedding functions, different default database or tenant, etc.), these configurations will need to be specified when interacting with the restored database. 
+  - For managing shared configuration, consider using something like AWS AppConfig or similar services to manage shared configurations across different environments and services.
+  - Alternatively, if managed via version control and sharing across users, ensure that configuration files are checked into a repository and versioned appropriately.
