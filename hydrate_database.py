@@ -3,13 +3,13 @@ import os
 import chromadb
 persistent_path = os.environ["CHROMADB_PERSISTENT_PATH"]
 client = chromadb.PersistentClient(path=persistent_path)
-
+collection_name = "chroma-sync-testing"
 try:
-    collection = client.get_collection("all-my-documents")
-    print("Using existing collection")
+    collection = client.get_collection(collection_name)
+    print(f"Using existing collection {collection_name}")
 except:
     collection = client.create_collection("all-my-documents")
-    print("Created new collection")
+    print(f"Created new collection {collection_name}")
 
 # Add some documents
 collection.add(

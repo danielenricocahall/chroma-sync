@@ -6,7 +6,7 @@ echo "🧹 Cleaning up chroma-sync environment..."
 # Stop and remove containers
 docker-compose down -v
 
-# Remove chroma data directory
-rm -rf chroma_data
+rm -rf chroma_db
+rm -rf chroma_db_backups
 
 echo "✅ Cleanup complete!"
