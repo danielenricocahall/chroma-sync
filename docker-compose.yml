@@ -1,21 +1,17 @@
 services:
-  minio:
-    image: minio/minio:latest
-    container_name: chroma-minio
+  floci:
+    image: floci/floci:latest
+    container_name: chroma-floci
     ports:
-      - "9000:9000"  # API port
-      - "9001:9001"  # Console port
+      - "4566:4566"  # AWS API port (S3 lives here)
     environment:
-      MINIO_ROOT_USER: minioadmin
-      MINIO_ROOT_PASSWORD: minioadmin
-    command: server /data --console-address ":9001"
+      FLOCI_HOSTNAME: floci
+      FLOCI_DEFAULT_REGION: us-east-1
+      FLOCI_STORAGE_MODE: persistent
+      FLOCI_STORAGE_PERSISTENT_PATH: /app/data
+      FLOCI_AUTH_VALIDATE_SIGNATURES: "false"
     volumes:
-      - minio_data:/data
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
-      interval: 5s
-      timeout: 3s
-      retries: 5
+      - floci_data:/app/data
 
 volumes:
-  minio_data:
+  floci_data:

@@ -4,7 +4,8 @@ dbs:
       - type: s3
         bucket: ${BUCKET_NAME}
         path: ${OBJECT_PATH}
-        endpoint: http://localhost:9000
+        endpoint: ${AWS_ENDPOINT_URL}
+        region: ${AWS_REGION}
         force-path-style: true
-        access-key-id: minioadmin
-        secret-access-key: minioadmin
+        access-key-id: ${AWS_ACCESS_KEY_ID}
+        secret-access-key: ${AWS_SECRET_ACCESS_KEY}
